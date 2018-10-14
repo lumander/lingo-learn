@@ -93,6 +93,7 @@ def returnCategory( entry ):
 
 
 def selectPhrase( topic ):
+	# CAREFULLY REVIEW THIS FUNCTION
 	'''
 	This function randomly returns a phrase from a list of examples
 	given a topic as input \n
