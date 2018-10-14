@@ -9,14 +9,12 @@ def rndRemove( phrase ):
 	OUTPUT:+ gapped_phrase=[I,am,a, ,.]
 	'''
 
-	length_phrase = len(phrase)
+	length_phrase = len( phrase )
 	
 	choice = random.randint( 0, length_phrase - 2 )
 	gapped_phrase = []
 	blank = '_______'
-	double_separator = '\n\n'
-	
-	
+		
 	for i in range(length_phrase):
 		if i == choice:
 			gapped_phrase.append( blank + ' ' )
@@ -32,228 +30,34 @@ def rndRemove( phrase ):
 	
 	#output += showHelp( choice, phrase );
 	
-
-
-
-
-public static String showHelp( int choice , ArrayList<String> phrase ){ // questa e' una funzione cazzuta
+def showHelp( entry, category, phrase ):
+	'''
+	This function returns the hints for filling the gap \n
 	
-	Properties names = new Properties();
-	Properties verbs = new Properties();
-	Properties adjectives = new Properties();
-	Properties adverbs = new Properties();
-	Properties pronouns = new Properties();
-	Properties prepositions = new Properties();
-	boolean sentinel = false;
-	String output = null;
-	String newLineWithSeparation = System.getProperty("line.separator")+System.getProperty("line.separator");
-	
-			 
-			try {
-				InputStream input = new FileInputStream("src\\words\\commonNames.properties");
-				names.load(input);
-				input.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			try {
-				InputStream input = new FileInputStream("src\\words\\commonVerbs.properties");
-				verbs.load(input);
-				input.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			try {
-				InputStream input = new FileInputStream("src\\words\\commonAdjectives.properties");
-				adjectives.load(input);
-				input.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			try {
-				InputStream input = new FileInputStream("src\\words\\commonAdverbs.properties");
-				adverbs.load(input);
-				input.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-						
-			try {
-				InputStream input = new FileInputStream("src\\words\\commonPronouns.properties");
-				pronouns.load(input);
-				input.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			try {
-				InputStream input = new FileInputStream("src\\words\\commonPrepositions.properties");
-				prepositions.load(input);
-				input.close();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-//try {
-//	
-//	FileReader verbsInput = new FileReader( "C:\\Users\\Alessandro Lumino\\Documents\\commonVerbs.txt" ); // qui bisognerebbe scegliere il livello di difficolta'
-//			
-//	Scanner s = new Scanner( new BufferedReader( verbsInput ) );
-//	
-//	s.useDelimiter("\n");
-//	
-//	while(s.hasNext()){
-//		verbs.add(s.next());
-//	}
-//	
-//	if( s != null )
-//		s.close();
-//} catch (FileNotFoundException e) {
-//	
-//	e.printStackTrace();
-//}
-//
+	INPUT: phrase=['I', 'am', 'a', ,.] \n
+	OUTPUT:+ gapped_phrase=['plumber', 'butcher'.,]
 
+	'''
+	# TO DO
+	# HANDLE SPECIAL CASES SUCH AS I ( pronoun )
 
-  if ( findCategory( phrase.get(choice), names ) && sentinel == false ) {
-	  
-	  int choice1 = (int) ( Math.random() * names.size() );
-	  int choice2 = (int) ( Math.random() * names.size() );
-	  int choice3 = (int) ( Math.random() * names.size() );
-	  int choice4 = (int) ( Math.random() * names.size() );
+	helper=[]
+	num_words = len( phrase ) - 1 ## a phrase may contain dots or marks at its ending
+	length_category = len( category )
+	random_choices = random.sample( range( length_category ) , num_words - 1 ) # minus 1 since one clue has to be the correct one!
 	
-	  
-	  
-	  output = newLineWithSeparation + "\\medskip ";
-	  output += "\\emph{" + phrase.get( choice ).toLowerCase() + " - " + 
-			  names.getProperty( String.valueOf(choice1) ).trim().toLowerCase() + " - " + 
-			  names.getProperty( String.valueOf(choice2) ).trim().toLowerCase() + " - " + 
-			  names.getProperty( String.valueOf(choice3) ).trim().toLowerCase() + " - " + 
-			  names.getProperty( String.valueOf(choice4) ).trim().toLowerCase() + "}";
-	  output += newLineWithSeparation + "\\medskip ";
-	  
-	  sentinel = true;
-	  
-  } 
-  
-  if ( findCategory( phrase.get(choice), verbs ) == true && sentinel == false ) {
-	  
-	  int choice1 = (int) ( Math.random() * verbs.size() );
-	  int choice2 = (int) ( Math.random() * verbs.size() );
-	  int choice3 = (int) ( Math.random() * verbs.size() );
-	  int choice4 = (int) ( Math.random() * verbs.size() );
-	  
-	  output = newLineWithSeparation + "\\medskip ";
-	  output += "\\emph{" + phrase.get( choice ).toLowerCase() + " - " + 
-			  verbs.getProperty( String.valueOf(choice1) ).trim().toLowerCase() + " - " + 
-			  verbs.getProperty( String.valueOf(choice2) ).trim().toLowerCase() + " - " + 
-			  verbs.getProperty( String.valueOf(choice3) ).trim().toLowerCase() + " - " + 
-			  verbs.getProperty( String.valueOf(choice4) ).trim().toLowerCase() + "}";
-	  output += newLineWithSeparation + "\\medskip ";
-	  
-	  sentinel = true;	  
-	  
-  } 
+	random_fill = random.sample( range( num_words ) , num_words ) # random order for filling the helper list
+	choice = random.randint( 0, num_words - 1 ) # if the order were not random, the test would be biased
 
-  if ( findCategory( phrase.get(choice), adjectives ) == true && sentinel == false ) {
-	  
-	  int choice1 = (int) ( Math.random() * adjectives.size() );
-	  int choice2 = (int) ( Math.random() * adjectives.size() );
-	  int choice3 = (int) ( Math.random() * adjectives.size() );
-	  int choice4 = (int) ( Math.random() * adjectives.size() );
-	  
-	  output = newLineWithSeparation + "\\medskip ";
-	  output += "\\emph{" + phrase.get( choice ).toLowerCase() + " - " + 
-			  adjectives.getProperty( String.valueOf(choice1) ).trim().toLowerCase() + " - " + 
-			  adjectives.getProperty( String.valueOf(choice2) ).trim().toLowerCase() + " - " + 
-			  adjectives.getProperty( String.valueOf(choice3) ).trim().toLowerCase() + " - " + 
-			  adjectives.getProperty( String.valueOf(choice4) ).trim().toLowerCase() + "}";
-	  output += newLineWithSeparation + "\\medskip ";
-	  
-	  sentinel = true;
-  } 
-  
-  if ( findCategory( phrase.get(choice), adverbs ) == true && sentinel == false ) {
-	  
-	  int choice1 = (int) ( Math.random() * adverbs.size() );
-	  int choice2 = (int) ( Math.random() * adverbs.size() );
-	  int choice3 = (int) ( Math.random() * adverbs.size() );
-	  int choice4 = (int) ( Math.random() * adverbs.size() );
-	  
-	  output = newLineWithSeparation + "\\medskip ";
-	  output += "\\emph{" + phrase.get( choice ).toLowerCase() + " - " + 
-			  adverbs.getProperty( String.valueOf(choice1) ).trim().toLowerCase() + " - " + 
-			  adverbs.getProperty( String.valueOf(choice2) ).trim().toLowerCase() + " - " + 
-			  adverbs.getProperty( String.valueOf(choice3) ).trim().toLowerCase() + " - " + 
-			  adverbs.getProperty( String.valueOf(choice4) ).trim().toLowerCase() + "}";
-	  output += newLineWithSeparation + "\\medskip ";
-	
-	  sentinel = true;
-	  
-  } 
-  
-  if ( findCategory( phrase.get(choice), pronouns ) && sentinel == false ) {
-	  
-	  int choice1 = (int) ( Math.random() * pronouns.size() );
-	  int choice2 = (int) ( Math.random() * pronouns.size() );
-	  int choice3 = (int) ( Math.random() * pronouns.size() );
-	  int choice4 = (int) ( Math.random() * pronouns.size() );
-	  String str0,str1,str2,str3,str4;
-	  
-	  str0 = ( phrase.get( choice ).trim().equals("I") ) ? phrase.get( choice ).trim() : phrase.get( choice ).trim().toLowerCase();
-	  str1 = ( pronouns.getProperty( String.valueOf(choice1) ).trim().equals("I") ) ? pronouns.getProperty( String.valueOf(choice1) ).trim() : pronouns.getProperty( String.valueOf(choice1) ).trim().toLowerCase();
-	  str2 = ( pronouns.getProperty( String.valueOf(choice2) ).trim().equals("I") ) ? pronouns.getProperty( String.valueOf(choice2) ).trim() : pronouns.getProperty( String.valueOf(choice2) ).trim().toLowerCase();
-	  str3 = ( pronouns.getProperty( String.valueOf(choice3) ).trim().equals("I") ) ? pronouns.getProperty( String.valueOf(choice3) ).trim() : pronouns.getProperty( String.valueOf(choice3) ).trim().toLowerCase();
-	  str4 = ( pronouns.getProperty( String.valueOf(choice4) ).trim().equals("I") ) ? pronouns.getProperty( String.valueOf(choice4) ).trim() : pronouns.getProperty( String.valueOf(choice4) ).trim().toLowerCase();
-	  
-	  
-	  output = newLineWithSeparation + "\\medskip ";
-	  output += "\\emph{" + str0 + " - " + str1 + " - " + str2 + " - " + str3 + " - " + str4 + "}";
-	  output += newLineWithSeparation + "\\medskip ";
-	
-	  sentinel = true;
-	  
-  } 
-  
+	for i in random_fill:
+		if i == choice:
+			helper.append( entry )
+		else:
+			helper.append( category[ random_choices[i] ] )
+
+	return helper		
 
   
-  if ( findCategory( phrase.get(choice), prepositions ) == true && sentinel == false ) {
-	  
-	  int choice1 = (int) ( Math.random() * prepositions.size() );
-	  int choice2 = (int) ( Math.random() * prepositions.size() );
-	  int choice3 = (int) ( Math.random() * prepositions.size() );
-	  int choice4 = (int) ( Math.random() * prepositions.size() );
-	  
-	  output = newLineWithSeparation + "\\medskip ";
-	  output += "\\emph{" + phrase.get( choice ).toLowerCase() + " - " + 
-			  prepositions.getProperty( String.valueOf(choice1) ).trim().toLowerCase() + " - " + 
-			  prepositions.getProperty( String.valueOf(choice2) ).trim().toLowerCase() + " - " + 
-			  prepositions.getProperty( String.valueOf(choice3) ).trim().toLowerCase() + " - " + 
-			  prepositions.getProperty( String.valueOf(choice4) ).trim().toLowerCase() + "}";
-	  output += newLineWithSeparation + "\\medskip ";
-	
-	  sentinel = true;
-	  
-  } 
-  
-  if( !sentinel ) {
-	  output = newLineWithSeparation + "\\medskip ";
-	output +=  "\\emph{" + "Clue not found! }";
-	output += newLineWithSeparation + "\\medskip ";
-  }
-  
-  return output;
-
-	}
 
 def returnCategory( entry ):
 
@@ -281,61 +85,37 @@ def returnCategory( entry ):
     for category in categories:
         for key in range( len( dictionary[ category ] ) ):
             if dictionary[ category ][ key ] == entry :
-                return dictionary
+                return dictionary[category]
+			else:
+				return {0:'Clue not found!'}
 
 
 
 
+def selectPhrase( topic ):
+	'''
+	This function randomly returns a phrase from a list of examples
+	given a topic as input \n
+    INPUT: 'modal verbs' \n 
 
-public static ArrayList<String> selectPhrase(){
+    \texamples={ 0:'Shall I compare thee to a summer's day?,1:... } } \n
+
+    OUTPUT: ['Shall ', 'I ', 'compare ', 'thee ', 'to ', 'a ' , 'summer','\'','s', 'day'] \n
+
+	'''
+	## POSSIBLE IMPROVEMENT - IMPLEMENTATION OF LEVELS OF DIFFICULTY
+
+    topic_file = 'phrases_db/' + topic
+	examples={}
 	
-	Properties examples = new Properties();
-	ArrayList<String> phrase = new ArrayList<String>(4);
-	Scanner s = null;
+	with open( topic_file, 'r' ) as stream:
+    		examples.update( yaml.load( stream ) )
 	
-	try {
-		InputStream input = new FileInputStream("src\\examples\\unit01A.properties");
-		examples.load(input);
-		input.close();
-	} catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
-	
-//	try {
-//		
-//		FileReader input = new FileReader( "C:\\Users\\Alessandro Lumino\\Documents\\unit14A_Phrases.txt" ); // qui bisognerebbe scegliere il livello di difficolta'
-//				
-//		s = new Scanner( new BufferedReader( input ) );
-//		
-//		s.useDelimiter("\n");
-//		
-//		while(s.hasNext()){
-//			examples.add(s.next());
-//		}
-//		
-//		if( s != null )
-//			s.close();
-//	} catch (FileNotFoundException e) {
-//		
-//		e.printStackTrace();
-//	}
-	
-	int choice = (int) ( Math.random()*examples.size() );
-	
+	num_examples = len(examples)
+    choice = random.randint( 0, num_examples - 1 )
 
-		s = new Scanner( examples.getProperty( String.valueOf(choice) ) );
-		s.useDelimiter(" ");
-		while(s.hasNext()){
-			phrase.add(s.next());
-		}
-		if( s != null )
-			s.close();
-		s.close();
-		
-		return phrase;
-		
-	}
+	return examples[choice]
+
 
 public static void generate( int numberOfTest, int numberOfQuestion, int idFile ){
 	
