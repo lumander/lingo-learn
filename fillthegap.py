@@ -1,65 +1,39 @@
-package exercises;
+import random
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.Scanner;
+def rndRemove( phrase ):
+	'''
+	This function takes a phrase in the form of a list of 
+	strings and returns the same list without a random element, e.g \n
+	INPUT -> phrase=[I,am,a,butcher,.] \n
+	OUTPUT -> gapped_phrase=[I,am,a, ,.]
+	'''
 
-import utilities.StreamPrinter;
+	length_phrase = len(phrase)
+	
+	choice = random.randint( 0, length_phrase - 2 )
+	gapped_phrase = []
+	blank = '_______'
+	double_separator = '\n\n'
+	
+	
+	for i in range(length_phrase):
+		if i == choice:
+			gapped_phrase.append( blank + ' ' )
+		else:
+			if i == ( length_phrase - 1 ):
+				gapped_phrase.append( phrase[i] )
+			else:
+				gapped_phrase.append( phrase[i] + ' ' )
 
-public class fillTheGap {
-		
+	return gapped_phrase		
+	
+	
+	
+	#output += showHelp( choice, phrase );
+	
 
-public static String rndRemove( ArrayList<String> phrase, int questions ){
-	
-	int choice = (int) ( Math.random()*phrase.size() - 1 );
-	String blank = null, word = null;
-	String output = null;
-	String newLineWithSeparation = System.getProperty("line.separator")+System.getProperty("line.separator");
-	
-	output = "\\item ";
-	
-	for( int i = 0; i < phrase.size(); i++ ){
-		
-		if( i == choice ){
-			blank = "\\line(1,0){30} \\, " ;
-			output += blank;
-			
-		}
-			
-			else {
-				
-				if( i == phrase.size() - 2 ){
-					
-				word = phrase.get(i);
-				output += word;
-				
-				} else {
-					
-					word = phrase.get(i) + " ";
-					output += word;
-					
-				}
-				
-			}
-				
-		
-	}
-	
-	output += newLineWithSeparation + "\\bigskip";
-	
-	
-	output += showHelp( choice, phrase );
-	
-	output += newLineWithSeparation + "\\bigskip";
-	
-	return output;
 
-}
+
 
 public static String showHelp( int choice , ArrayList<String> phrase ){ // questa e' una funzione cazzuta
 	
