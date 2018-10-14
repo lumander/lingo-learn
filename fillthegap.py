@@ -6,7 +6,7 @@ def rndRemove( phrase ):
 	This function takes a phrase in the form of a list of 
 	strings and returns the same list without a random element, e.g \n
 	INPUT: phrase=[I,am,a,butcher,.] \n
-	OUTPUT:+ gapped_phrase=[I,am,a, ,.]
+	OUTPUT: gapped_phrase=[I,am,a, ,.]
 	'''
 
 	length_phrase = len( phrase )
@@ -35,7 +35,7 @@ def showHelp( entry, category, phrase ):
 	This function returns the hints for filling the gap \n
 	
 	INPUT: phrase=['I', 'am', 'a', ,.] \n
-	OUTPUT:+ gapped_phrase=['plumber', 'butcher'.,]
+	OUTPUT:helper=['plumber', 'butcher'.,]
 
 	'''
 	# TO DO
@@ -60,7 +60,6 @@ def showHelp( entry, category, phrase ):
   
 
 def returnCategory( entry ):
-
     '''
     This function returns a relevant category of words upon
 	the entry provided by searching into a dictionary of already classified words\n
@@ -93,7 +92,6 @@ def returnCategory( entry ):
 
 
 def selectPhrase( topic ):
-	# CAREFULLY REVIEW THIS FUNCTION
 	'''
 	This function randomly returns a phrase from a list of examples
 	given a topic as input \n
