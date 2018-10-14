@@ -95,24 +95,19 @@ def selectPhrase( topic ):
 	'''
 	This function randomly returns a phrase from a list of examples
 	given a topic as input 
-    INPUT: 'modal verbs' 
-
-    examples={ 0:'Shall I compare thee to a summer's day?,1:... } }
-
-    OUTPUT: ['Shall ', 'I ', 'compare ', 'thee ', 'to ', 'a ' , 'summer','\'','s', 'day']
-
+	INPUT: 'modal verbs' 
+	examples={ 0:'Shall I compare thee to a summer's day?,1:... } }
+	OUTPUT: ['Shall ', 'I ', 'compare ', 'thee ', 'to ', 'a ' , 'summer','\'','s', 'day']
 	'''
 	## POSSIBLE IMPROVEMENT - IMPLEMENTATION OF LEVELS OF DIFFICULTY
 
-    topic_file = 'phrases_db/' + topic
+	topic_file = 'phrases_db/' + topic
 	examples={}
 	
 	with open( topic_file, 'r' ) as stream:
-    		examples.update( yaml.load( stream ) )
-	
+		examples.update( yaml.load( stream ) )
+
 	num_examples = len(examples)
-    choice = random.randint( 0, num_examples - 1 )
+	choice = random.randint( 0, num_examples - 1 )
 
 	return examples[choice]
-
-
