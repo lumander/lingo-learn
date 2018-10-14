@@ -73,7 +73,7 @@ def returnCategory( entry ):
 
 	dictionary_path = 'words_db/'
 	category_files = listdir( dictionary_path )
-	dictionary = {}
+	dictionary = {} 
 
 	for file in category_files:
 		with open( file, 'r' ) as stream:
