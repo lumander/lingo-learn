@@ -4,8 +4,8 @@ from os import listdir
 def rndRemove( phrase ):
 	'''
 	This function takes a phrase in the form of a list of 
-	strings and returns the same list without a random element, e.g \n
-	INPUT: phrase=[I,am,a,butcher,.] \n
+	strings and returns the same list without a random element, e.g 
+	INPUT: phrase=[I,am,a,butcher,.] 
 	OUTPUT: gapped_phrase=[I,am,a, ,.]
 	'''
 
@@ -32,9 +32,9 @@ def rndRemove( phrase ):
 	
 def showHelp( entry, category, phrase ):
 	'''
-	This function returns the hints for filling the gap \n
+	This function returns the hints for filling the gap 
 	
-	INPUT: phrase=['I', 'am', 'a', ,.] \n
+	INPUT: phrase=['I', 'am', 'a', ,.] 
 	OUTPUT:helper=['plumber', 'butcher'.,]
 
 	'''
@@ -62,13 +62,13 @@ def showHelp( entry, category, phrase ):
 def returnCategory( entry ):
     '''
     This function returns a relevant category of words upon
-	the entry provided by searching into a dictionary of already classified words\n
+	the entry provided by searching into a dictionary of already classified words
 
-    INPUT: 'foo' \n 
+    INPUT: 'foo' 
 
-    \tdictionary={ 'adjectives':{ 0:'foo',1:... }, 'verbs':{} } \n
+    \tdictionary={ 'adjectives':{ 0:'foo',1:... }, 'verbs':{} } 
 
-    OUTPUT: { 0:'foo',1:... } \n
+    OUTPUT: { 0:'foo',1:... }
     '''
 
 	dictionary_path = 'words_db/'
@@ -94,12 +94,12 @@ def returnCategory( entry ):
 def selectPhrase( topic ):
 	'''
 	This function randomly returns a phrase from a list of examples
-	given a topic as input \n
-    INPUT: 'modal verbs' \n 
+	given a topic as input 
+    INPUT: 'modal verbs' 
 
-    \texamples={ 0:'Shall I compare thee to a summer's day?,1:... } } \n
+    examples={ 0:'Shall I compare thee to a summer's day?,1:... } }
 
-    OUTPUT: ['Shall ', 'I ', 'compare ', 'thee ', 'to ', 'a ' , 'summer','\'','s', 'day'] \n
+    OUTPUT: ['Shall ', 'I ', 'compare ', 'thee ', 'to ', 'a ' , 'summer','\'','s', 'day']
 
 	'''
 	## POSSIBLE IMPROVEMENT - IMPLEMENTATION OF LEVELS OF DIFFICULTY
@@ -116,102 +116,3 @@ def selectPhrase( topic ):
 	return examples[choice]
 
 
-public static void generate( int numberOfTest, int numberOfQuestion, int idFile ){
-	
-	int test, questions;
-	String text = null;
-	String tempDirectory = "C:\\Users\\Alessandro Lumino\\Documents\\FillTheGap";
-	String tempFileName = "unit14A_Phrases"+ idFile;
-	
-	String newLineWithSeparation = System.getProperty("line.separator")+System.getProperty("line.separator");
-	
-	text = "";
-	text += "\\documentclass[a4paper, 10pt]{article}" + newLineWithSeparation;
-	text += "\\usepackage[T1]{fontenc}" + newLineWithSeparation;
-	text += "\\usepackage[utf8]{inputenc}" + newLineWithSeparation;
-	text += "\\usepackage[english]{babel}" + newLineWithSeparation;
-	text += "\\usepackage{layaureo,graphicx}" + newLineWithSeparation;
-	text += "\\begin{document}" + newLineWithSeparation;
-	text += "\\pagestyle{empty}" + newLineWithSeparation;
-	
-		
-	for( test = 1; test <= numberOfTest; test++ ){
-		String content="";
-		text +=  "\\section*{Test " + test + "}"  + newLineWithSeparation + "\\bigskip \\medskip  " + newLineWithSeparation;
-		text += "\\textbf{Name: } \\qquad \\qquad \\qquad \\qquad \\qquad " ;
-		text += "\\textbf{Surname: } \\qquad \\qquad \\qquad \\qquad " ;
-		text += "\\qquad \\textbf{Date: } " + newLineWithSeparation + "\\bigskip  \\smallskip " + newLineWithSeparation;
-		text += "\\begin{enumerate}";
-		
-		 
-		  
-			for( questions = 1; questions <= numberOfQuestion; questions++ ){
-				content += rndRemove( selectPhrase(), questions ) + newLineWithSeparation;
-			}
-			text += content + newLineWithSeparation;
-			text += "\\end{enumerate}" + newLineWithSeparation;
-			text += "\\newpage";
-		 
-	 	}
-	
-	text += newLineWithSeparation + "\\end{document}";
-	
-	createTex( tempDirectory, tempFileName, text );
-	
-	executeTex( tempFileName, tempDirectory );
-	
-	showPdf(tempFileName, tempDirectory);
-
-	}
-
-public static void createTex( String tempDirectory, String tempFileName, String content ){
-	
-		FileWriter writer = null;
-	
-    	try {
-        writer = new FileWriter( tempDirectory + "\\" + tempFileName + ".tex", false );
-        writer.write( content, 0, content.length() );
-        writer.close();
-    	} catch (IOException ex) {
-        ex.printStackTrace();
-    	}
-    
-	}
-
-public static void executeTex( String tempFileName , String tempDirectory ){
-
-	 ProcessBuilder pb = new ProcessBuilder("pdflatex", "-shell-escape", tempFileName + ".tex");
-     pb.directory(new File( tempDirectory ));
-     try {
-         Process p = pb.start();
-         StreamPrinter fluxSortie = new StreamPrinter(p.getInputStream(), true);
-         StreamPrinter fluxErreur = new StreamPrinter(p.getErrorStream(), true);
-         new Thread(fluxSortie).start();
-         new Thread(fluxErreur).start();
-         p.waitFor();
-     } catch (IOException | InterruptedException ex) {
-         ex.printStackTrace();
-     }
-	
-    
-     
-	}
-
-public static void showPdf( String tempFileName , String tempDirectory ){
-	
-	ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/C", "start", tempFileName + ".pdf");
-    pb.directory(new File( tempDirectory ));
-    try {
-        Process p = pb.start();
-        StreamPrinter fluxSortie = new StreamPrinter(p.getInputStream(), false);
-        StreamPrinter fluxErreur = new StreamPrinter(p.getErrorStream(), false);
-        new Thread(fluxSortie).start();
-        new Thread(fluxErreur).start();
-        p.waitFor();
-    } catch (IOException | InterruptedException ex) {
-        ex.printStackTrace();
-    }
-	
-	}
-
-}
