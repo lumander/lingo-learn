@@ -1,11 +1,12 @@
 import random
+from os import listdir
 
 def rndRemove( phrase ):
 	'''
 	This function takes a phrase in the form of a list of 
 	strings and returns the same list without a random element, e.g \n
-	INPUT -> phrase=[I,am,a,butcher,.] \n
-	OUTPUT -> gapped_phrase=[I,am,a, ,.]
+	INPUT: phrase=[I,am,a,butcher,.] \n
+	OUTPUT:+ gapped_phrase=[I,am,a, ,.]
 	'''
 
 	length_phrase = len(phrase)
@@ -254,23 +255,37 @@ public static String showHelp( int choice , ArrayList<String> phrase ){ // quest
 
 	}
 
-public static boolean findCategory( String findMe, Properties basket ){
-	
-	boolean flag = false;
-	
-	for ( int k = 0; k < basket.size() ; k++ ){
-		
-		if( findMe.toLowerCase().equals( basket.getProperty( String.valueOf(k) ).trim().toLowerCase() ) ){
-			flag = true;
-			break;
-			
-		}
-			
-		
-	}
-	
-	return flag;
-}
+def returnCategory( entry ):
+
+    '''
+    This function returns a relevant category of words upon
+	the entry provided by searching into a dictionary of already classified words\n
+
+    INPUT: 'foo' \n 
+
+    \tdictionary={ 'adjectives':{ 0:'foo',1:... }, 'verbs':{} } \n
+
+    OUTPUT: { 0:'foo',1:... } \n
+    '''
+
+	dictionary_path = 'words_db/'
+	category_files = listdir( dictionary_path )
+	dictionary = {}
+
+	for file in category_files:
+		with open( file, 'r' ) as stream:
+    		dictionary.update( yaml.load( stream ) )
+
+	categories = dictionary.keys()
+
+    for category in categories:
+        for key in range( len( dictionary[ category ] ) ):
+            if dictionary[ category ][ key ] == entry :
+                return dictionary
+
+
+
+
 
 public static ArrayList<String> selectPhrase(){
 	

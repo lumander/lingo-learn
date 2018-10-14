@@ -1,255 +1,256 @@
-0: not
-1: also
-2: very
-3: often
-4: however
-5: too
-6: usually
-7: really
-8: early
-9: never
-10: always
-11: sometimes
-12: together
-13: likely
-14: simply
-15: generally
-16: instead
-17: actually
-18: again
-19: rather
-20: almost
-21: especially
-22: ever
-23: quickly
-24: probably
-25: already
-26: below
-27: directly
-28: therefore
-29: else
-30: thus
-31: easily
-32: eventually
-33: exactly
-34: certainly
-35: normally
-36: currently
-37: extremely
-38: finally
-39: constantly
-40: properly
-41: soon
-42: specifically
-43: ahead
-44: daily
-45: highly
-46: immediately
-47: relatively
-48: slowly
-49: fairly
-50: primarily
-51: completely
-52: ultimately
-53: widely
-54: recently
-55: seriously
-56: frequently
-57: fully
-58: mostly
-59: naturally
-60: nearly
-61: occasionally
-62: carefully
-63: clearly
-64: essentially
-65: possibly
-66: slightly
-67: somewhat
-68: equally
-69: greatly
-70: necessarily
-71: personally
-72: rarely
-73: regularly
-74: similarly
-75: basically
-76: closely
-77: effectively
-78: initially
-79: literally
-80: mainly
-81: merely
-82: gently
-83: hopefully
-84: originally
-85: roughly
-86: significantly
-87: totally
-88: twice
-89: elsewhere
-90: everywhere
-91: obviously
-92: perfectly
-93: physically
-94: successfully
-95: suddenly
-96: truly
-97: virtually
-98: altogether
-99: anyway
-100: automatically
-101: deeply
-102: ly
-103: deliberately
-104: hardly
-105: readily
-106: terribly
-107: unfortunately
-108: forth
-109: briefly
-110: moreover
-111: strongly
-112: honestly
-113: previously
-114: as
-115: there
-116: when
-117: how
-118: so
-119: up
-120: out
-121: no
-122: only
-123: well
-124: then
-125: first
-126: where
-127: why
-128: now
-129: around
-130: once
-131: down
-132: off
-133: here
-134: tonight
-135: away
-136: today
-137: far
-138: quite
-139: later
-140: above
-141: yet
-142: maybe
-143: otherwise
-144: near
-145: forward
-146: somewhere
-147: anywhere
-148: please
-149: forever
-150: somehow
-151: absolutely
-152: abroad
-153: yeah
-154: nowhere
-155: tomorrow
-156: yesterday
-157: the 
-158: to
-159: in
-160: on
-161: by
-162: more
-163: about
-164: such
-165: through
-166: new
-167: just
-168: any
-169: each
-170: much
-171: before
-172: between
-173: free
-174: right
-175: best
-176: since
-177: both
-178: sure
-179: without
-180: back
-181: better
-182: enough
-183: lot
-184: small
-185: though
-186: less
-187: little
-188: under
-189: next
-190: hard
-191: real
-192: left
-193: least
-194: short
-195: last
-196: within
-197: along
-198: lower
-199: true
-200: bad
-201: across
-202: clear
-203: easy
-204: full
-205: close
-206: late
-207: proper
-208: fast
-209: wide
-210: item
-211: wrong
-212: ago
-213: behind
-214: quick
-215: straight
-216: direct
-217: extra
-218: morning
-219: pretty
-220: overall
-221: alone
-222: bright
-223: flat
-224: whatever
-225: slow
-226: clean
-227: fresh
-228: whenever
-229: cheap
-230: thin
-231: cool
-232: fair
-233: fine
-234: smooth
-235: false
-236: thick
-237: collect
-238: nearby
-239: wild
-240: apart
-241: none
-242: strange
-243: tourist
-244: aside
-245: loud
-246: super
-247: tight
-248: gross
-249: ill
-250: downtown
-251: honest
-252: ok
-253: pray
+adverbs:
+    0: not
+    1: also
+    2: very
+    3: often
+    4: however
+    5: too
+    6: usually
+    7: really
+    8: early
+    9: never
+    10: always
+    11: sometimes
+    12: together
+    13: likely
+    14: simply
+    15: generally
+    16: instead
+    17: actually
+    18: again
+    19: rather
+    20: almost
+    21: especially
+    22: ever
+    23: quickly
+    24: probably
+    25: already
+    26: below
+    27: directly
+    28: therefore
+    29: else
+    30: thus
+    31: easily
+    32: eventually
+    33: exactly
+    34: certainly
+    35: normally
+    36: currently
+    37: extremely
+    38: finally
+    39: constantly
+    40: properly
+    41: soon
+    42: specifically
+    43: ahead
+    44: daily
+    45: highly
+    46: immediately
+    47: relatively
+    48: slowly
+    49: fairly
+    50: primarily
+    51: completely
+    52: ultimately
+    53: widely
+    54: recently
+    55: seriously
+    56: frequently
+    57: fully
+    58: mostly
+    59: naturally
+    60: nearly
+    61: occasionally
+    62: carefully
+    63: clearly
+    64: essentially
+    65: possibly
+    66: slightly
+    67: somewhat
+    68: equally
+    69: greatly
+    70: necessarily
+    71: personally
+    72: rarely
+    73: regularly
+    74: similarly
+    75: basically
+    76: closely
+    77: effectively
+    78: initially
+    79: literally
+    80: mainly
+    81: merely
+    82: gently
+    83: hopefully
+    84: originally
+    85: roughly
+    86: significantly
+    87: totally
+    88: twice
+    89: elsewhere
+    90: everywhere
+    91: obviously
+    92: perfectly
+    93: physically
+    94: successfully
+    95: suddenly
+    96: truly
+    97: virtually
+    98: altogether
+    99: anyway
+    100: automatically
+    101: deeply
+    102: ly
+    103: deliberately
+    104: hardly
+    105: readily
+    106: terribly
+    107: unfortunately
+    108: forth
+    109: briefly
+    110: moreover
+    111: strongly
+    112: honestly
+    113: previously
+    114: as
+    115: there
+    116: when
+    117: how
+    118: so
+    119: up
+    120: out
+    121: no
+    122: only
+    123: well
+    124: then
+    125: first
+    126: where
+    127: why
+    128: now
+    129: around
+    130: once
+    131: down
+    132: off
+    133: here
+    134: tonight
+    135: away
+    136: today
+    137: far
+    138: quite
+    139: later
+    140: above
+    141: yet
+    142: maybe
+    143: otherwise
+    144: near
+    145: forward
+    146: somewhere
+    147: anywhere
+    148: please
+    149: forever
+    150: somehow
+    151: absolutely
+    152: abroad
+    153: yeah
+    154: nowhere
+    155: tomorrow
+    156: yesterday
+    157: the 
+    158: to
+    159: in
+    160: on
+    161: by
+    162: more
+    163: about
+    164: such
+    165: through
+    166: new
+    167: just
+    168: any
+    169: each
+    170: much
+    171: before
+    172: between
+    173: free
+    174: right
+    175: best
+    176: since
+    177: both
+    178: sure
+    179: without
+    180: back
+    181: better
+    182: enough
+    183: lot
+    184: small
+    185: though
+    186: less
+    187: little
+    188: under
+    189: next
+    190: hard
+    191: real
+    192: left
+    193: least
+    194: short
+    195: last
+    196: within
+    197: along
+    198: lower
+    199: true
+    200: bad
+    201: across
+    202: clear
+    203: easy
+    204: full
+    205: close
+    206: late
+    207: proper
+    208: fast
+    209: wide
+    210: item
+    211: wrong
+    212: ago
+    213: behind
+    214: quick
+    215: straight
+    216: direct
+    217: extra
+    218: morning
+    219: pretty
+    220: overall
+    221: alone
+    222: bright
+    223: flat
+    224: whatever
+    225: slow
+    226: clean
+    227: fresh
+    228: whenever
+    229: cheap
+    230: thin
+    231: cool
+    232: fair
+    233: fine
+    234: smooth
+    235: false
+    236: thick
+    237: collect
+    238: nearby
+    239: wild
+    240: apart
+    241: none
+    242: strange
+    243: tourist
+    244: aside
+    245: loud
+    246: super
+    247: tight
+    248: gross
+    249: ill
+    250: downtown
+    251: honest
+    252: ok
+    253: pray    
 254: weekly
