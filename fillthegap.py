@@ -30,11 +30,8 @@ def rnd_remove( phrase ):
 	output['phrase']=to_string( gapped_phrase )
 	return output		
 
-
-
-	#output += showHelp( choice, phrase );
 	
-def show_help( entry, phrase ):
+def show_help( entry, phrase,vocabulary ):
 	'''
 	This function returns the hints for filling the gap 
 
@@ -47,7 +44,7 @@ def show_help( entry, phrase ):
 
 	helper=[]
 	num_words = 5 ## a phrase may contain dots or marks at its ending
-	dictionary = return_category( entry )
+	dictionary = return_category( entry, vocabulary)
 	entry_key=dictionary['key']
 	category=dictionary['category']
 	length_category = len( category )
@@ -67,9 +64,27 @@ def show_help( entry, phrase ):
 
 	return helper
 
+def get_topic( topic ):
+	topic_file = 'phrases_db/' + topic + '.yaml'
+	
+	examples={}
+
+	with open( topic_file, 'r' ) as stream:
+		examples.update( yaml.load( stream ) )
+
+	return examples
+
+def get_vocabulary():
+	vocabulary={}
+	vocabulary_path = 'words_db/'
+	category_files = listdir( vocabulary_path )
+	for file in category_files:
+		with open( vocabulary_path + file, 'r' ) as stream:
+			vocabulary.update( yaml.load( stream ) )
+	return vocabulary
   
 
-def return_category( entry ):
+def return_category( entry, vocabulary ):
 	'''
 	This function returns a relevant category of words upon
 	the entry provided by searching into a dictionary of already classified words
@@ -80,24 +95,17 @@ def return_category( entry ):
 	OUTPUT: { 0:'foo',1:... }
 	'''
 
-	dictionary_path = 'words_db/'
-	category_files = listdir( dictionary_path )
-	
-	dictionary = {}
 	check = False
 	
-	for file in category_files:
-		with open( dictionary_path + file, 'r' ) as stream:
-			dictionary.update( yaml.load( stream ) )
 	
-	categories = dictionary.keys()
+	categories = vocabulary.keys()
 	output={}
 	for category in categories:
-		for key in range( len( dictionary[ category ] ) ):
-			if dictionary[ category ][ key ] == entry.lower() :
+		for key in range( len( vocabulary[ category ] ) ):
+			if vocabulary[ category ][ key ] == entry :
 				check = True
 				output['key']=key
-				output['category']=dictionary[category]
+				output['category']=vocabulary[category]
 				return output
 	
 	if check == False:
@@ -109,7 +117,7 @@ def return_category( entry ):
 
 
 
-def select_phrase( topic ):
+def select_phrase( examples ):
 	'''
 	This function randomly returns a phrase from a list of examples
 	given a topic as input 
@@ -119,12 +127,6 @@ def select_phrase( topic ):
 	'''
 	## POSSIBLE IMPROVEMENT - IMPLEMENTATION OF LEVELS OF DIFFICULTY
 
-	topic_file = 'phrases_db/' + topic + '.yaml'
-	examples={}
-	
-	with open( topic_file, 'r' ) as stream:
-		examples.update( yaml.load( stream ) )
-
 	num_examples = len(examples)
 	choice = random.randint( 0, num_examples - 1 )
 
@@ -132,12 +134,12 @@ def select_phrase( topic ):
 
 def question_with_help( phrase ):
 	output = ''
-	test=rnd_remove( phrase )
-	gapped_phrase = test['phrase']
-	entry = phrase[ test['entry'] ]
+	dictionary=rnd_remove( phrase )
+	gapped_phrase = dictionary['phrase']
+	entry = phrase[ dictionary['entry'] ]
 	output += to_string( gapped_phrase )
 	output += '\n'
-	output +=  to_string(show_help( entry, phrase ) )
+	output +=  to_string( show_help( entry, phrase, vocabulary ) )
 	return output
 
 def to_string( array ):
@@ -149,12 +151,15 @@ def to_string( array ):
 
 
 #def generate( numberOfTest, numberOfQuestions ):
-topic='unit14A'
-for test in range( 2 ):
+topic = 'unit14A'
+vocabulary = get_vocabulary()
+examples = get_topic( topic )
+
+for test in range( 30 ):
 	print(str(test) + '\n')
 	content=''
-	for questions in range( 10 ):
-		phrase = select_phrase( topic )
+	for questions in range( 20 ):
+		phrase = select_phrase( examples )
 		content += question_with_help( phrase )
 		content += '\n\n'	
 	print(content)
