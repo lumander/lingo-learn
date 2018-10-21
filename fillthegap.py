@@ -132,7 +132,7 @@ def select_phrase( examples ):
 
 	return examples[choice].split(' ')
 
-def question_with_help( phrase ):
+def question_with_help( phrase, vocabulary ):
 	output = ''
 	dictionary=rnd_remove( phrase )
 	gapped_phrase = dictionary['phrase']
@@ -150,16 +150,16 @@ def to_string( array ):
 
 
 
-#def generate( numberOfTest, numberOfQuestions ):
-topic = 'unit14A'
-vocabulary = get_vocabulary()
-examples = get_topic( topic )
+def generate( topic, numberOfTests, numberOfQuestions ):
 
-for test in range( 30 ):
-	print(str(test) + '\n')
-	content=''
-	for questions in range( 20 ):
-		phrase = select_phrase( examples )
-		content += question_with_help( phrase )
-		content += '\n\n'	
-	print(content)
+	vocabulary = get_vocabulary()
+	examples = get_topic( topic )
+
+	for test in range( numberOfTests ):
+		print(str(test) + '\n')
+		content=''
+		for questions in range( numberOfQuestions ):
+			phrase = select_phrase( examples )
+			content += question_with_help( phrase, vocabulary )
+			content += '\n\n'	
+		print(content)

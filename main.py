@@ -1,15 +1,15 @@
 import sys
 import yaml
-import fillthegap
-from utils import generate
+from fillthegap import generate
+
 
 ## relative path here
 with open("configurations.yaml", 'r') as stream:
     configurations = yaml.load(stream)
 
-idFile = configurations['file_id']
+topic = configurations['topic']
 numberOfTests = configurations['test_to_print']
 numberOfQuestions = configurations['questions']
 
 
-#FillTheGap.generate( numberOfTest, numberOfQuestions , idFile )
+generate( topic, numberOfTests,numberOfQuestions )
