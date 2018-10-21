@@ -156,7 +156,7 @@ def generate( topic, numberOfTests, numberOfQuestions ):
 	examples = get_topic( topic )
 
 	for test in range( numberOfTests ):
-		print(str(test) + '\n')
+		print( str(test) + '\n' )
 		content=''
 		for questions in range( numberOfQuestions ):
 			phrase = select_phrase( examples )
