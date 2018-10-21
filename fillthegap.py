@@ -1,8 +1,9 @@
 import random
-from os import listdir
 import yaml
-from pylatex import Document, PageStyle, Head, Foot, MiniPage, StandAloneGraphic, MultiColumn, Tabu, LongTabu, LargeText, MediumText, LineBreak, NewPage, Tabularx, TextColor, simple_page_number
-from pylatex.utils import bold, NoEscape
+from pylatex import Document, Section,Subsection, NewPage
+from pylatex.utils import italic
+from pylatex.utils import NoEscape
+
 
 def rnd_remove( phrase ):
 	'''
@@ -58,30 +59,13 @@ def show_help( entry, phrase,vocabulary ):
 		helper.append('Clue not found!')
 	else:
 		for i in random_choices:
-			helper.append( str( category[ i ] ) + '  ' )
+			helper.append( str( category[ i ] ) + '    ' )
 	
 	
 
 	return helper
 
-def get_topic( topic ):
-	topic_file = 'phrases_db/' + topic + '.yaml'
-	
-	examples={}
 
-	with open( topic_file, 'r' ) as stream:
-		examples.update( yaml.load( stream ) )
-
-	return examples
-
-def get_vocabulary():
-	vocabulary={}
-	vocabulary_path = 'words_db/'
-	category_files = listdir( vocabulary_path )
-	for file in category_files:
-		with open( vocabulary_path + file, 'r' ) as stream:
-			vocabulary.update( yaml.load( stream ) )
-	return vocabulary
   
 
 def return_category( entry, vocabulary ):
@@ -132,15 +116,16 @@ def select_phrase( examples ):
 
 	return examples[choice].split(' ')
 
-def question_with_help( phrase, vocabulary ):
-	output = ''
+def question_with_help( phrase, vocabulary, doc ):
+	
 	dictionary=rnd_remove( phrase )
 	gapped_phrase = dictionary['phrase']
 	entry = phrase[ dictionary['entry'] ]
-	output += to_string( gapped_phrase )
-	output += '\n'
-	output +=  to_string( show_help( entry, phrase, vocabulary ) )
-	return output
+	doc.append( to_string( gapped_phrase ) )
+	doc.append('\n\n')
+	doc.append( italic( to_string( show_help( entry, phrase, vocabulary ) ) ) )
+
+
 
 def to_string( array ):
 	string=''
@@ -148,18 +133,17 @@ def to_string( array ):
 		string += array[i]
 	return string
 
+def generate( topic, numberOfTests, numberOfQuestions, vocabulary, examples ):
 
-
-def generate( topic, numberOfTests, numberOfQuestions ):
-
-	vocabulary = get_vocabulary()
-	examples = get_topic( topic )
-
+	doc = Document()
 	for test in range( numberOfTests ):
-		print( str(test) + '\n' )
-		content=''
-		for questions in range( numberOfQuestions ):
-			phrase = select_phrase( examples )
-			content += question_with_help( phrase, vocabulary )
-			content += '\n\n'	
-		print(content)
+		with doc.create( Section( 'Fill in the Gap', numbering = False ) ):
+			with doc.create( Subsection( 'Surname:_________Name:_________Date:________ ', numbering = False ) ):
+				for questions in range( numberOfQuestions ):
+					phrase = select_phrase( examples )
+					question_with_help( phrase, vocabulary, doc )
+					doc.append('\n\n')
+		doc.append(NewPage())
+	
+	doc.generate_pdf('full', clean_tex=False)
+	
