@@ -1,7 +1,10 @@
 import random
 from os import listdir
+import yaml
+from pylatex import Document, PageStyle, Head, Foot, MiniPage, StandAloneGraphic, MultiColumn, Tabu, LongTabu, LargeText, MediumText, LineBreak, NewPage, Tabularx, TextColor, simple_page_number
+from pylatex.utils import bold, NoEscape
 
-def rndRemove( phrase ):
+def rnd_remove( phrase ):
 	'''
 	This function takes a phrase in the form of a list of 
 	strings and returns the same list without a random element, e.g 
@@ -9,12 +12,13 @@ def rndRemove( phrase ):
 	OUTPUT: gapped_phrase=[I,am,a, ,.]
 	'''	
 	length_phrase = len( phrase )
-
+	output={}
 	choice = random.randint( 0, length_phrase - 2 )
+	
 	gapped_phrase = []
 	blank = '_______'
 
-	for i in range(length_phrase):
+	for i in range( length_phrase ):
 		if i == choice:
 			gapped_phrase.append( blank + ' ' )
 		else:
@@ -22,13 +26,15 @@ def rndRemove( phrase ):
 				gapped_phrase.append( phrase[i] )
 			else:
 				gapped_phrase.append( phrase[i] + ' ' )	
-	return gapped_phrase		
+	output['entry']=choice
+	output['phrase']=to_string( gapped_phrase )
+	return output		
 
 
 
 	#output += showHelp( choice, phrase );
 	
-def showHelp( entry, category, phrase ):
+def show_help( entry, phrase ):
 	'''
 	This function returns the hints for filling the gap 
 
@@ -40,22 +46,30 @@ def showHelp( entry, category, phrase ):
 	# HANDLE SPECIAL CASES SUCH AS I ( pronoun )	
 
 	helper=[]
-	num_words = len( phrase ) - 1 ## a phrase may contain dots or marks at its ending
+	num_words = 5 ## a phrase may contain dots or marks at its ending
+	dictionary = return_category( entry )
+	entry_key=dictionary['key']
+	category=dictionary['category']
 	length_category = len( category )
-	random_choices = random.sample( range( length_category ) , num_words - 1 ) # minus 1 since one clue has to be the correct one!
+	random_choices = set()
+	random_choices.add( entry_key )
+	while( len( random_choices ) != num_words ):
+		random_choices.add( random.randint( 0, length_category - 1 )  ) # minus 1 since one clue has to be the correct one!
+	
+	
+	if entry_key == -1:
+		helper.append('Clue not found!')
+	else:
+		for i in random_choices:
+			helper.append( str( category[ i ] ) + '  ' )
+	
+	
 
-	random_fill = random.sample( range( num_words ) , num_words ) # random order for filling the helper list
-	choice = random.randint( 0, num_words - 1 ) # if the order were not random, the test would be biased	
-	for i in random_fill:
-		if i == choice:
-			helper.append( entry )
-		else:
-			helper.append( category[ random_choices[i] ] )	
-	return helper		
+	return helper
 
   
 
-def returnCategory( entry ):
+def return_category( entry ):
 	'''
 	This function returns a relevant category of words upon
 	the entry provided by searching into a dictionary of already classified words
@@ -65,28 +79,37 @@ def returnCategory( entry ):
 
 	OUTPUT: { 0:'foo',1:... }
 	'''
-	
+
 	dictionary_path = 'words_db/'
 	category_files = listdir( dictionary_path )
-	dictionary = {} 
+	
+	dictionary = {}
+	check = False
 	
 	for file in category_files:
-		with open( file, 'r' ) as stream:
+		with open( dictionary_path + file, 'r' ) as stream:
 			dictionary.update( yaml.load( stream ) )
 	
 	categories = dictionary.keys()
-	
+	output={}
 	for category in categories:
 		for key in range( len( dictionary[ category ] ) ):
-			if dictionary[ category ][ key ] == entry :
-				return dictionary[category]
-			else:
-				return {0:'Clue not found!'}
+			if dictionary[ category ][ key ] == entry.lower() :
+				check = True
+				output['key']=key
+				output['category']=dictionary[category]
+				return output
+	
+	if check == False:
+		output['key'] = -1
+		output['category'] = entry + ' not found!'
+		return output
+			
 
 
 
 
-def selectPhrase( topic ):
+def select_phrase( topic ):
 	'''
 	This function randomly returns a phrase from a list of examples
 	given a topic as input 
@@ -96,7 +119,7 @@ def selectPhrase( topic ):
 	'''
 	## POSSIBLE IMPROVEMENT - IMPLEMENTATION OF LEVELS OF DIFFICULTY
 
-	topic_file = 'phrases_db/' + topic
+	topic_file = 'phrases_db/' + topic + '.yaml'
 	examples={}
 	
 	with open( topic_file, 'r' ) as stream:
@@ -105,4 +128,33 @@ def selectPhrase( topic ):
 	num_examples = len(examples)
 	choice = random.randint( 0, num_examples - 1 )
 
-	return examples[choice]
+	return examples[choice].split(' ')
+
+def question_with_help( phrase ):
+	output = ''
+	test=rnd_remove( phrase )
+	gapped_phrase = test['phrase']
+	entry = phrase[ test['entry'] ]
+	output += to_string( gapped_phrase )
+	output += '\n'
+	output +=  to_string(show_help( entry, phrase ) )
+	return output
+
+def to_string( array ):
+	string=''
+	for i in range( len( array ) ):
+		string += array[i]
+	return string
+
+
+
+#def generate( numberOfTest, numberOfQuestions ):
+topic='unit14A'
+for test in range( 2 ):
+	print(str(test) + '\n')
+	content=''
+	for questions in range( 10 ):
+		phrase = select_phrase( topic )
+		content += question_with_help( phrase )
+		content += '\n\n'	
+	print(content)
